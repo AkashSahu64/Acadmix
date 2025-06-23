@@ -280,7 +280,7 @@ const ManageUsers = () => {
             </thead>
             <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
               {loading ? (
-                <tr>
+                <tr key="loading-row">
                   <td colSpan={activeTab === 'teachers' ? 6 : 7} className="px-6 py-10 text-center">
                     <div className="flex justify-center">
                       <div className="w-8 h-8 border-4 border-indigo-200 dark:border-indigo-900 border-t-indigo-500 rounded-full animate-spin"></div>
@@ -289,7 +289,7 @@ const ManageUsers = () => {
                 </tr>
               ) : filteredUsers().length > 0 ? (
                 filteredUsers().map((user) => (
-                  <tr key={user.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                  <tr kkey={user._id} className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                       <div className="flex items-center">
                         <div className="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center text-indigo-600 dark:text-indigo-400 mr-3">
@@ -304,7 +304,7 @@ const ManageUsers = () => {
                     ) : (
                       <>
                         <td className="px-6 py-4 whitespace-nowrap text-sm">{user.branch}</td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm">Year {user.year} / Sem {user.semester}</td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm">Year {user.year ?? 'N/A'} / Sem {user.semester ?? 'N/A'}</td>
                       </>
                     )}
                     <td className="px-6 py-4 whitespace-nowrap text-sm">{user.joinedDate}</td>
@@ -314,7 +314,9 @@ const ManageUsers = () => {
                           ? 'bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400' 
                           : 'bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400'
                       }`}>
-                        {user.status.charAt(0).toUpperCase() + user.status.slice(1)}
+                        {user?.status ? (
+                          user.status.charAt(0).toUpperCase() + user.status.slice(1)
+                        ) : 'Inactive'}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
@@ -372,7 +374,7 @@ const ManageUsers = () => {
                   </tr>
                 ))
               ) : (
-                <tr>
+                <tr key="no-users-found">
                   <td colSpan={activeTab === 'teachers' ? 6 : 7} className="px-6 py-10 text-center text-slate-500 dark:text-slate-400">
                     <Users size={36} className="mx-auto mb-3 opacity-30" />
                     <p>No users found</p>

@@ -144,7 +144,7 @@ const AdminDashboard = () => {
                     {/* Chart */}
                     <div className="ml-12 h-full flex items-end">
                       <div className="flex-1 h-full flex justify-around items-end">
-                        {analytics.userGrowth.map((data, index) => (
+                        {analytics.userGrowth?.map((data, index) => (
                           <div key={index} className="flex flex-col items-center w-full">
                             <div className="relative w-full flex justify-center">
                               <motion.div
@@ -188,7 +188,7 @@ const AdminDashboard = () => {
                 <h2 className="text-xl font-semibold mb-6">Resource Distribution</h2>
                 
                 <div className="space-y-6">
-                  {analytics.resourceDistribution.map((item, index) => (
+                  {analytics.resourceDistribution?.map((item, index) => (
                     <div key={index} className="space-y-2">
                       <div className="flex justify-between text-sm">
                         <span>{item.type}</span>
@@ -213,7 +213,7 @@ const AdminDashboard = () => {
                 
                 <h2 className="text-xl font-semibold mt-8 mb-4">Popular Resources</h2>
                 <div className="space-y-3">
-                  {analytics.popularResources.map((resource, index) => (
+                  {analytics.popularResources?.map((resource, index) => (
                     <div key={index} className="glass p-3 rounded-lg">
                       <div className="flex justify-between items-center">
                         <div className="flex items-center">

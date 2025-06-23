@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs'); // Make sure this line exists
+const User = require('../models/User');
 
 const connectDB = async () => {
   try {
@@ -8,19 +10,50 @@ const connectDB = async () => {
     });
 
     console.log(`📦 MongoDB Connected: ${conn.connection.host}`);
+
+    // Seed demo accounts after connection
+    await seedDemoAccounts();
+    return conn;
   } catch (error) {
     console.error('❌ Database connection error:', error.message);
     process.exit(1);
   }
 };
 
-// Handle connection events
-mongoose.connection.on('disconnected', () => {
-  console.log('📦 MongoDB disconnected');
-});
+const seedDemoAccounts = async () => {
+  try {
+    const demoAccounts = [
+      {
+        email: "admin@example.com",
+        defaults: {
+          name: "Admin",
+          password: bcrypt.hashSync("Admin123", 10), // bcrypt now available
+          role: "admin",
+          isVerified: true
+        }
+      },
+      {
+        email: "teacher@example.com",
+        defaults: {
+          name: "Teacher",
+          password: bcrypt.hashSync("Teacher123", 10), // bcrypt now available
+          role: "teacher",
+          isVerified: true
+        }
+      }
+    ];
 
-mongoose.connection.on('error', (err) => {
-  console.error('❌ MongoDB error:', err);
-});
+    for (const account of demoAccounts) {
+      await User.findOneAndUpdate(
+        { email: account.email },
+        account.defaults,
+        { upsert: true, new: true }
+      );
+    }
+    console.log("✅ Demo accounts checked/created");
+  } catch (error) {
+    console.error("❌ Seeding error:", error.message);
+  }
+};
 
 module.exports = { connectDB };

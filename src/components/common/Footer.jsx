@@ -62,7 +62,7 @@ const Footer = () => {
                 <BookOpen size={20} className="text-white" />
               </div>
               <h3 className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-                Smart College
+                Acadmix
               </h3>
             </div>
             <p className="text-slate-600 dark:text-slate-300 mb-4 text-sm leading-relaxed">
@@ -146,7 +146,7 @@ const Footer = () => {
             <div className="space-y-3 mb-6">
               <div className="flex items-center text-slate-600 dark:text-slate-300 text-sm">
                 <Mail size={14} className="mr-2 flex-shrink-0" />
-                <span>support@smartcollege.edu</span>
+                <span>support@acadmix.edu</span>
               </div>
               <div className="flex items-center text-slate-600 dark:text-slate-300 text-sm">
                 <Phone size={14} className="mr-2 flex-shrink-0" />
@@ -200,7 +200,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6">
               <p className="text-slate-600 dark:text-slate-300 text-sm">
-                © {new Date().getFullYear()} Smart College Platform. All rights reserved.
+                © {new Date().getFullYear()} Acadmix Platform. All rights reserved.
               </p>
               <div className="flex space-x-4">
                 <Link

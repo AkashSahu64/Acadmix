@@ -10,7 +10,7 @@ const DashboardLayout = () => {
   
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-900">
-      {/* Fixed Navbar */}
+      {/* Navbar */}
       <Navbar 
         toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} 
         isSidebarOpen={isSidebarOpen}
@@ -19,16 +19,15 @@ const DashboardLayout = () => {
           { title: 'Resource updated', message: 'New notes added for Algorithms', time: '1 day ago' }
         ]}
       />
-      
-      {/* Main Content Area */}
+
+      {/* Main layout: sidebar + content */}
       <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar */}
         <Sidebar 
           isOpen={isSidebarOpen} 
           toggle={() => setIsSidebarOpen(!isSidebarOpen)} 
+          setIsSidebarOpen={setIsSidebarOpen}
         />
-        
-        {/* Main Content */}
+
         <motion.div 
           className="flex-1 flex flex-col overflow-hidden"
           initial={{ opacity: 0 }}
@@ -38,10 +37,11 @@ const DashboardLayout = () => {
           <main className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8">
             <Outlet />
           </main>
-          
-          <Footer />
         </motion.div>
       </div>
+
+      {/* Full-width Footer outside the sidebar-content row */}
+      <Footer />
     </div>
   );
 };
