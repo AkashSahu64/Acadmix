@@ -160,22 +160,23 @@ const Sidebar = ({ isOpen, toggle }) => {
   };
 
   const handleMobileNavigation = (to) => {
-  if (window.innerWidth < 1024) {
-    toggle(); // Close sidebar
-    setTimeout(() => {
-      navigate(to); // Navigate after animation delay
-    }, 310); // <- ⬅️ Delay slightly more than motion sidebar duration (300ms)
-  } else {
-    navigate(to); // Desktop devices: direct navigation
-  }
-};
+    //console.log("Navigating to:", to); 
+    if (window.innerWidth < 1024) {
+      toggle();
+      setTimeout(() => {
+        navigate(to);
+      }, 310);
+    } else {
+      navigate(to);
+    }
+  };
 
   return (
     <>
       {/* Mobile overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-30 lg:hidden"
+          className="fixed inset-0 bg-black/50 z-10 lg:hidden"
           onClick={toggle}
         />
       )}
