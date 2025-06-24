@@ -74,11 +74,11 @@ const LandingPage = () => {
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center">
+            <div className="hidden md:flex w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 items-center justify-center">
               <BookOpen size={20} className="text-white" />
             </div>
             <h1 className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              Smart College
+              Acadmix
             </h1>
           </div>
           

@@ -21,7 +21,7 @@ const AuthLayout = () => {
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-full md:w-1/2 bg-gradient-to-br from-indigo-500 to-purple-600 text-white p-8 flex flex-col justify-center"
+          className="w-full md:w-1/2 bg-gradient-to-br from-indigo-500 to-purple-600 text-white p-5 lg:p-8 flex flex-col justify-center"
         >
           <div className="max-w-md mx-auto">
             <h1 className="text-4xl font-bold mb-2">{getGreeting()}</h1>
@@ -58,7 +58,7 @@ const AuthLayout = () => {
             </div>
             
             <p className="text-sm text-indigo-200">
-              © {currentTime.getFullYear()} Smart College Platform. All rights reserved.
+              © {currentTime.getFullYear()} Acadmix Platform. All rights reserved.
             </p>
           </div>
         </motion.div>
@@ -68,7 +68,7 @@ const AuthLayout = () => {
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="w-full md:w-1/2 bg-slate-50 dark:bg-slate-900 flex items-center justify-center p-8"
+          className="w-full md:w-1/2 bg-slate-50 dark:bg-slate-900 flex items-center justify-center p-5 lg:p-8"
         >
           <div className="w-full max-w-md">
             <Outlet />

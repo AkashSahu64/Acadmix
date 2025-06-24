@@ -68,7 +68,7 @@ const Login = () => {
       variants={containerVariants}
       initial="hidden"
       animate="visible"
-      className="glass-card p-8 rounded-xl"
+      className="glass-card p-5 lg:p-8 rounded-xl"
     >
       <motion.div variants={itemVariants} className="mb-6 text-center">
         <h1 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Welcome Back</h1>
@@ -239,7 +239,7 @@ const Login = () => {
       </motion.form>
 
       {/* Login hints */}
-      <motion.div 
+      {/* <motion.div 
         variants={itemVariants}
         className="mt-8 text-xs text-slate-500 dark:text-slate-400 p-3 glass rounded-lg"
       >
@@ -253,7 +253,7 @@ const Login = () => {
         {activeTab === 'admin' && (
           <p>Email: admin@example.com / Password: password</p>
         )}
-      </motion.div>
+      </motion.div> */}
     </motion.div>
   );
 };

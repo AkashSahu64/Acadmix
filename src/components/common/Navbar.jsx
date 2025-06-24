@@ -1,36 +1,24 @@
-import { useState, useEffect, useRef } from "react";
-import { Bell, Sun, Moon, User, LogOut, Menu, X, BookOpen } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Bell, Sun, Moon, User, LogOut, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "../../hooks/useTheme";
 import { useAuth } from "../../hooks/useAuth";
-
+import { BookOpen } from "lucide-react";
 const Navbar = ({ toggleSidebar, isSidebarOpen, notifications = [] }) => {
   const { darkMode, toggleTheme } = useTheme();
   const { user, logout } = useAuth();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
-  // Refs for dropdowns
-  const notificationRef = useRef(null);
-  const profileRef = useRef(null);
-
-  // Close dropdowns on outside click
+  // Close dropdowns when clicking outside
   useEffect(() => {
-    const handleClickOutside = (e) => {
-      if (
-        notificationRef.current &&
-        !notificationRef.current.contains(e.target)
-      ) {
-        setShowNotifications(false);
-      }
-
-      if (profileRef.current && !profileRef.current.contains(e.target)) {
-        setShowProfileMenu(false);
-      }
+    const handleClickOutside = () => {
+      setShowNotifications(false);
+      setShowProfileMenu(false);
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
   const handleDropdownClick = (e, setter) => {
@@ -38,7 +26,7 @@ const Navbar = ({ toggleSidebar, isSidebarOpen, notifications = [] }) => {
     setter((prev) => !prev);
   };
 
-  // Animation variants
+  // Define animations
   const dropdownVariants = {
     hidden: { opacity: 0, y: -20, scale: 0.95 },
     visible: {
@@ -65,7 +53,6 @@ const Navbar = ({ toggleSidebar, isSidebarOpen, notifications = [] }) => {
       animate="visible"
       className="glass-card sticky top-0 z-40 p-4 flex justify-between items-center h-[72px]"
     >
-      {/* Left Side: Brand + Menu Toggle */}
       <div className="flex items-center">
         <button
           onClick={toggleSidebar}
@@ -74,20 +61,20 @@ const Navbar = ({ toggleSidebar, isSidebarOpen, notifications = [] }) => {
           {isSidebarOpen ? <X size={20} /> : <Menu size={20} />}
         </button>
         <div className="flex items-center space-x-2">
-          {/* Icon visible only on md and above */}
+          {/* Show icon only on md and above */}
           <div className="hidden md:flex w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 items-center justify-center">
             <BookOpen size={20} className="text-white" />
           </div>
+
+          {/* Always show name */}
           <h1 className="text-lg md:text-xl font-semibold text-indigo-600 dark:text-indigo-400">
             Acadmix
           </h1>
         </div>
       </div>
 
-      {/* Right Side: Notifications, Theme, Profile */}
       <div className="flex items-center space-x-2 md:space-x-4">
-        {/* Notifications */}
-        <div className="relative" ref={notificationRef}>
+        <div className="relative">
           <button
             onClick={(e) => handleDropdownClick(e, setShowNotifications)}
             className="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors duration-200 relative"
@@ -114,7 +101,7 @@ const Navbar = ({ toggleSidebar, isSidebarOpen, notifications = [] }) => {
                   <h3 className="font-medium">Notifications</h3>
                 </div>
                 <div className="p-2">
-                  {notifications.length > 0 ? (
+                  {notifications && notifications.length > 0 ? (
                     notifications.map((notification, index) => (
                       <div
                         key={index}
@@ -142,7 +129,6 @@ const Navbar = ({ toggleSidebar, isSidebarOpen, notifications = [] }) => {
           </AnimatePresence>
         </div>
 
-        {/* Theme Toggle */}
         <button
           onClick={toggleTheme}
           className="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors duration-200"
@@ -150,8 +136,7 @@ const Navbar = ({ toggleSidebar, isSidebarOpen, notifications = [] }) => {
           {darkMode ? <Sun size={20} /> : <Moon size={20} />}
         </button>
 
-        {/* Profile */}
-        <div className="relative" ref={profileRef}>
+        <div className="relative">
           <button
             onClick={(e) => handleDropdownClick(e, setShowProfileMenu)}
             className="flex items-center space-x-2 p-1 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors duration-200"
