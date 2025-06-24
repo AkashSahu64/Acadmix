@@ -108,7 +108,7 @@ const LandingPage = () => {
         {/* Hero Section */}
         <motion.section variants={itemVariants} className="py-20 text-center">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold lg:mb-10 mb-6">
               Your Ultimate
               <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"> Academic </span>
               Resource Platform
@@ -118,7 +118,7 @@ const LandingPage = () => {
               Connect with peers and get instant help from our AI study assistant.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-4 lg:mt-16 justify-center items-center">
               <Link 
                 to="/auth/register" 
                 className="group px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center"
@@ -134,7 +134,7 @@ const LandingPage = () => {
               </Link>
             </div>
             
-            <div className="mt-12 flex justify-center items-center space-x-8 text-sm text-slate-500 dark:text-slate-400">
+            <div className="lg:mt-16 mt-12 flex justify-center items-center space-x-8 text-sm text-slate-500 dark:text-slate-400">
               <div className="flex items-center">
                 <CheckCircle size={16} className="mr-2 text-green-500" />
                 Free to Join
