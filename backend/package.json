@@ -1,7 +1,7 @@
 {
   "name": "acadmix",
   "version": "1.0.0",
-  "description": "Backend API for Acadmix Resource Platform",
+  "description": "Backend API for Acadmixs Resource Platform",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
