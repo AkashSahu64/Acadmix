@@ -1,7 +1,7 @@
 {
   "name": "acadmix",
   "version": "1.0.0",
-  "description": "Backend API for Smart College Resource Platform",
+  "description": "Backend API for Acadmix Resource Platform",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -13,7 +13,7 @@
     "mern",
     "api"
   ],
-  "author": "Smart College Team",
+  "author": "Acadmix Team",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^6.0.0",
