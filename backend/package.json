@@ -1,5 +1,5 @@
 {
-  "name": "smart-college-backend",
+  "name": "acadmix",
   "version": "1.0.0",
   "description": "Backend API for Smart College Resource Platform",
   "main": "server.js",
