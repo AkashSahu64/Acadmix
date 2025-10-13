@@ -36,8 +36,9 @@ connectDB();
 
 // Security middleware
 app.use(helmet());
+
 const allowedOrigins = [
-  process.env.FRONTEND_URL,
+  process.env.FRONTEND_URL || "https://acadmix-eight.vercel.app",
   "http://localhost:5173",
   "http://localhost:3000"
 ];
@@ -52,8 +53,14 @@ app.use(
       }
     },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+// ✅ Handle preflight requests
+app.options("*", cors());
+
 
 
 // Rate limiting
