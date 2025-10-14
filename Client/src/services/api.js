@@ -12,16 +12,25 @@ const api = axios.create({
 // Request interceptor to add auth token
 api.interceptors.request.use(
   (config) => {
+    // ✅ Public routes jahan token nahi bhejna chahiye
+    const publicRoutes = ['/auth/register', '/auth/login'];
+
+    // Check karein ki current request public route par hai ya nahi
+    const isPublic = publicRoutes.some((path) => config.url.includes(path));
+
+    // Token localStorage se lo
     const token = localStorage.getItem('authToken');
-    if (token) {
+
+    // ✅ Token sirf tab bhejo jab route public na ho
+    if (token && !isPublic) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
+
 
 // Response interceptor to handle errors
 api.interceptors.response.use(
