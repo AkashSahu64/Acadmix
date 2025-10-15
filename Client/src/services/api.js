@@ -13,23 +13,15 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('authToken');
-    const publicPaths = ['/auth/register', '/auth/login']; // Public routes
-
-    // Check if current request URL ends with any public path
-    const isPublic = publicPaths.some((path) => config.url.endsWith(path));
-
-    // Token sirf private routes ke liye bhejo
-    if (token && !isPublic) {
+    if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-
     return config;
   },
   (error) => {
     return Promise.reject(error);
   }
 );
-
 
 // Response interceptor to handle errors
 api.interceptors.response.use(
@@ -138,6 +130,11 @@ export const userAPI = {
   updatePreferences: (preferences) => api.put('/users/preferences', preferences),
   getNotifications: () => api.get('/users/notifications'),
   markNotificationAsRead: (id) => api.put(`/users/notifications/${id}/read`),
+};
+
+// Common API calls (for all authenticated users)
+export const commonAPI = {
+  getAnnouncements: () => api.get('/announcements'),
 };
 
 export default api;

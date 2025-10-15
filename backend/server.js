@@ -15,6 +15,7 @@ const contentRoutes = require('./routes/content');
 const chatRoutes = require('./routes/chat');
 const aiRoutes = require('./routes/ai');
 const adminRoutes = require('./routes/admin');
+const announcements = require('./routes/announcements');
 
 // Import middleware
 const errorHandler = require('./middleware/errorHandler');
@@ -119,6 +120,7 @@ app.use('/api/content', contentRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/announcements', announcements);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

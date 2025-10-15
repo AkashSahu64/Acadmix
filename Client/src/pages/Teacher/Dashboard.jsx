@@ -6,6 +6,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { communityService } from '../../services/communityService';
 import { adminService } from '../../services/adminService';
 import { resourceService } from '../../services/resourceService';
+import { commonService } from '../../services/commonService';
 
 const TeacherDashboard = () => {
   const { user } = useAuth();
@@ -32,7 +33,7 @@ const TeacherDashboard = () => {
         // Fetch chats and announcements
         const [chats, announcements, notes, syllabus, videos, pyqs] = await Promise.all([
           communityService.getTeacherChats(),
-          adminService.getAnnouncements(),
+          commonService.getAnnouncements(),
           resourceService.getNotes(),
           resourceService.getSyllabus(),
           resourceService.getVideos(),
