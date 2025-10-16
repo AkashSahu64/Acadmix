@@ -24,50 +24,46 @@ const { connectDB } = require('./config/database');
 const app = express();
 const server = createServer(app);
 
-// Initialize Socket.IO for real-time chat
-const io = new Server(server, {
-  cors: {
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
-    methods: ["GET", "POST"]
-  }
-});
-
 // Connect to MongoDB
 connectDB();
 
 // Security middleware
 app.use(helmet());
 
+// ✅ Correct CORS Configuration
 const allowedOrigins = [
-  process.env.FRONTEND_URL || "https://acadmix-eight.vercel.app",
+  "https://acadmix-chi.vercel.app", // ✅ Correct frontend URL
+  "https://acadmix-eight.vercel.app", // ✅ Backup URL
   "http://localhost:5173",
-  "http://localhost:3000"
+  "http://localhost:3000",
+  "http://localhost:5000"
 ];
 
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
+// CORS middleware - sabse pehle
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      console.log('Blocked by CORS:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With", "Accept"]
+}));
 
-// ✅ Handle preflight requests
-app.options("*", cors());
-
-
+// ✅ Explicitly handle preflight requests
+app.options('*', cors());
 
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  max: 1000, // Increase limit for production
   message: 'Too many requests from this IP, please try again later.'
 });
 app.use('/api/', limiter);
@@ -79,7 +75,18 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // Logging middleware
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
+} else {
+  app.use(morgan('combined'));
 }
+
+// Initialize Socket.IO for real-time chat
+const io = new Server(server, {
+  cors: {
+    origin: allowedOrigins,
+    methods: ["GET", "POST"],
+    credentials: true
+  }
+});
 
 // Socket.IO connection handling
 io.on('connection', (socket) => {
@@ -127,7 +134,8 @@ app.get('/api/health', (req, res) => {
   res.status(200).json({
     success: true,
     message: 'Smart College API is running',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV
   });
 });
 
@@ -146,6 +154,7 @@ const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT} in ${process.env.NODE_ENV} mode`);
+  console.log(`✅ Allowed origins:`, allowedOrigins);
 });
 
 // Handle unhandled promise rejections
