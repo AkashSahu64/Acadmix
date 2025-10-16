@@ -187,9 +187,9 @@ const StudentDashboard = () => {
                     <BookOpen size={18} className="mr-2" /> Latest Notes
                   </h3>
                   <div className="space-y-2">
-                    {recentResources.notes.map((note) => (
+                    {recentResources.notes.map((note, index) => (
                       <Link
-                        key={note.id}
+                        key={note._id || note.id || index}
                         to={`/student/preview?type=notes&id=${note.id}`}
                         className="flex items-center p-3 glass rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                       >
@@ -227,9 +227,9 @@ const StudentDashboard = () => {
                     <FileText size={18} className="mr-2" /> Latest PYQs
                   </h3>
                   <div className="space-y-2">
-                    {recentResources.pyqs.map((pyq) => (
+                    {recentResources.pyqs.map((pyq, index) => (
                       <Link
-                        key={pyq.id}
+                        key={pyq._id || pyq.id || index}
                         to={`/student/preview?type=pyqs&id=${pyq.id}`}
                         className="flex items-center p-3 glass rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                       >
@@ -262,9 +262,9 @@ const StudentDashboard = () => {
                     <Video size={18} className="mr-2" /> Latest Videos
                   </h3>
                   <div className="space-y-2">
-                    {recentResources.videos.map((video) => (
+                    {recentResources.videos.map((video, index) => (
                       <Link
-                        key={video.id}
+                        key={video._id || video.id || index}
                         to={`/student/preview?type=videos&id=${video.id}`}
                         className="flex items-center p-3 glass rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                       >
@@ -316,10 +316,10 @@ const StudentDashboard = () => {
                 <div className="w-8 h-8 border-3 border-indigo-200 dark:border-indigo-900 border-t-indigo-500 rounded-full animate-spin"></div>
               </div>
             ) : announcements.length > 0 ? (
-              <div className="space-y-3" key='student-announcements'>
-                {announcements.map((announcement) => (
+              <div className="space-y-3" key='student-announcements-list'>
+                {announcements.map((announcement, index) => (
                   <div
-                    key={announcement.id}
+                    key={announcement._id || announcement.id || index}
                     className={`p-3 rounded-lg ${
                       announcement.pinned
                         ? "bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800"
