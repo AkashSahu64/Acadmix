@@ -32,7 +32,7 @@ app.use(helmet());
 
 // ✅ Correct CORS Configuration
 const allowedOrigins = [
-  "https://acadmix-chi.vercel.app", // ✅ Correct frontend URL
+  "https://acadmix-lgvp.vercel.app", // ✅ Correct frontend URL
   "https://acadmix-eight.vercel.app", // ✅ Backup URL
   "http://localhost:5173",
   "http://localhost:3000",
